@@ -2,12 +2,13 @@ const router = require('express').Router();
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
+const seedProducts = require('../../seeds/product-seeds');
 
 // GET /api/products = get all products
 router.get('/', (req, res) => {
   // find all products
   Product.findAll()
-    .then(dbProductData => res.json(dbProductData))
+    .then(productData => res.json(productData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -23,12 +24,12 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     }
   })
-    .then(dbProductData => {
-      if (!dbProductData) {
+    .then(productData => {
+      if (!productData) {
         res.status(404).json({ message: 'No product found with this id' });
         return;
       }
-      res.json(dbProductData);
+      res.json(productData);
     })
     .catch(err => {
       console.log(err);
@@ -45,7 +46,7 @@ router.post('/', (req, res) => {
     stock: req.body.stock,
     tagIds: req.body.tagIds
   })
-    .then(dbProductData => res.json(dbProductData))
+    .then(productData => res.json(productData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
