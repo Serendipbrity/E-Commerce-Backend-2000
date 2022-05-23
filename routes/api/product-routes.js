@@ -8,7 +8,7 @@ const seedProducts = require('../../seeds/product-seeds');
 router.get('/', (req, res) => {
   // find all products
   Product.findAll()
-    .then(productData => res.json(productData))
+    .then(dbProductData => res.json(dbProductData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);
@@ -24,12 +24,12 @@ router.get('/:id', (req, res) => {
       id: req.params.id
     }
   })
-    .then(productData => {
-      if (!productData) {
+    .then(dbProductData => {
+      if (!dbProductData) {
         res.status(404).json({ message: 'No product found with this id' });
         return;
       }
-      res.json(productData);
+      res.json(dbProductData);
     })
     .catch(err => {
       console.log(err);
@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
     stock: req.body.stock,
     tagIds: req.body.tagIds
   })
-    .then(productData => res.json(productData))
+    .then(dbProductData => res.json(dbProductData))
     .catch(err => {
       console.log(err);
       res.status(500).json(err);

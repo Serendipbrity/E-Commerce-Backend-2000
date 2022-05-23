@@ -50,6 +50,7 @@ Product.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
+    defaultValue: true,
     modelName: 'product',
   }
 );
